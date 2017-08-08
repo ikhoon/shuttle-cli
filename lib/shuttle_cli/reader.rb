@@ -1,16 +1,24 @@
+require 'pp'
 module ShuttleCli
   class Reader
     attr_accessor :bookmarks
 
-    def initialize
-      self.bookmarks = load_bookmarks
+    def initialize(key)
+      @key = key.downcase if key
+      self.bookmarks = load_bookmarks(key)
       self
     end
 
-    def load_bookmarks
+    def load_bookmarks(key)
       json = bookmarks_json.with_indifferent_access
       hosts = json[:hosts].flatten
-      converted = hosts.map do |h|
+      converted = hosts.select do |h|
+        if @key
+          h.keys.first.downcase.include? @key
+        else 
+          false
+        end
+      end.map do |h|
         Bookmark.new_from_json h
       end
       # For now flatten all.

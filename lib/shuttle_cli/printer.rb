@@ -1,6 +1,7 @@
 module ShuttleCli
   class Printer
-    def print
+    def print(key)
+      @key = key
       rows = bookmarks.map(&:to_a)
       table = Terminal::Table.new :rows => rows, headings: %w[number name command]
       puts table
@@ -22,7 +23,7 @@ module ShuttleCli
     end
 
     def reader
-      @reader ||= Reader.new
+      @reader ||= Reader.new(@key)
     end
   end
 end

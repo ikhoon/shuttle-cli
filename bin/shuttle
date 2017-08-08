@@ -9,13 +9,14 @@ module ShuttleCli
       end
 
       def start
-        printer.print
+        puts ARGV[0]
+        printer.print ARGV[0]
         take_user_input
       end
 
       def take_user_input
         puts "Enter a bookmark number to connect:"
-        number = gets.chomp.to_i
+        number = $stdin.gets.chomp.to_i
         printer.connect_to_number number
       end
     end
