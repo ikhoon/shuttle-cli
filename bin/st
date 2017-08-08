@@ -1,1 +1,25 @@
-shuttle
+#!/usr/bin/env ruby
+require_relative "../lib/shuttle_cli"
+
+module ShuttleCli
+  class CLI
+    class << self
+      def printer
+        @printer ||= ShuttleCli::Printer.new
+      end
+
+      def start
+        printer.print ARGV[0]
+        take_user_input
+      end
+
+      def take_user_input
+        puts "Enter a bookmark number to connect:"
+        number = $stdin.gets.chomp.to_i
+        printer.connect_to_number number
+      end
+    end
+  end
+end
+
+ShuttleCli::CLI.start

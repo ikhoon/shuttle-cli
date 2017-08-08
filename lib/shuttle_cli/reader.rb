@@ -16,7 +16,7 @@ module ShuttleCli
         if @key
           h.keys.first.downcase.include? @key
         else 
-          false
+          true
         end
       end.map do |h|
         Bookmark.new_from_json h

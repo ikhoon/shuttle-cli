@@ -9,7 +9,6 @@ module ShuttleCli
       end
 
       def start
-        puts ARGV[0]
         printer.print ARGV[0]
         take_user_input
       end
